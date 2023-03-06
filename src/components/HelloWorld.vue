@@ -173,7 +173,6 @@ export default defineComponent({
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           state.token = xhr.responseText
-          console.log(state.token)
         }
       }
       xhr.open('GET', 'https://cuby-chatee.oss-cn-hongkong.aliyuncs.com/joyo-cuby-chatte.txt', true)

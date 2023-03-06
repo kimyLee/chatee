@@ -8,7 +8,7 @@ import { Configuration, OpenAIApi } from 'openai'
 // import { ChatGPTAPI } from 'chatgpt'
 
 export default defineComponent({
-  name: 'cat-box',
+  name: 'CatBox',
 })
 </script>
 
@@ -18,7 +18,7 @@ export default defineComponent({
   width: 87px;
   height: 69px;
   background-color: #164110;
-  background-image: url(/cat.png);
+  background-image: url(/chatee/dist/cat.png);
   background-size: cover;
   background-repeat: no-repeat;
   // background-position: 0% 0%;

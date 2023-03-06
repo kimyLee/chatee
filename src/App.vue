@@ -5,7 +5,7 @@
 <style>
 @font-face {
   font-family: pixel;
-  src: url('/pixel.ttf');
+  src: url('/chatee/dist/pixel.ttf');
 }
 #app {
   font-family: pixel, 微软雅黑, Helvetica, Arial, sans-serif;

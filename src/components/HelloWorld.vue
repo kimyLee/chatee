@@ -341,7 +341,7 @@ export default defineComponent({
       top: 0;
       width: 100%;
       height: 100%;
-      background-image: url(/bg.png);
+      background-image: url(/chatee/dist/bg.png);
       background-size: 100% 100%;
       padding: 24px 20px 20px 22px;
       box-sizing: border-box;

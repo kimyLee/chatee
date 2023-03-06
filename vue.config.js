@@ -3,7 +3,7 @@
 module.exports = {
   productionSourceMap: false,
   // publicPath: '/insdot-web/dist/',
-  publicPath: '/',
+  publicPath: '/chatee/dist/',
   devServer: {
     // https: true,
     // port: 8088,

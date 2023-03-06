@@ -165,7 +165,20 @@ export default defineComponent({
 
       waiting: false,
       messageBox: null as any,
+      token: '',
     })
+
+    async function getToken () {
+      var xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          state.token = xhr.responseText
+          console.log(state.token)
+        }
+      }
+      xhr.open('GET', 'https://cuby-chatee.oss-cn-hongkong.aliyuncs.com/joyo-cuby-chatte.txt', true)
+      xhr.send(null)
+    }
 
     async function askQuestion () {
       if (state.waiting) return
@@ -175,7 +188,7 @@ export default defineComponent({
         role: 'user',
       })
       const configuration = new Configuration({
-        apiKey: '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',
+        apiKey: state.token,
       })
       const openai = new OpenAIApi(configuration)
 
@@ -297,6 +310,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
+      getToken()
       state.messageBox = document.getElementById('messageBox')
       initSpeak()
       generateTopic()

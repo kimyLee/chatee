@@ -5,7 +5,7 @@ module.exports = {
   // publicPath: '/insdot-web/dist/',
   publicPath: '/chatee/dist/',
   devServer: {
-    // https: true,
+    https: true,
     // port: 8088,
     disableHostCheck: true,
     headers: {

@@ -15,8 +15,8 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .cat-box {
-  width: 87px;
-  height: 69px;
+  width: 60px;
+  height: 50px;
   background-color: #164110;
   background-image: url(/chatee/dist/cat.png);
   background-size: cover;

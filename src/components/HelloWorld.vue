@@ -1,8 +1,12 @@
 <template>
   <div class="hello">
-    <h1 style="width: 100%">
-      OPEN AI CHTATEE
+    <h1 style="width: 100%"
+        class="header-text h1">
+      ChatyCat
     </h1>
+    <h4 class="header-text">
+      Your AI buddy powerd by ChatGPT
+    </h4>
 
     <!-- 模拟器 -->
     <div class="device-panel"
@@ -20,7 +24,7 @@
                     class="my-cursor">|</span>
               <br />
               <span v-show="current_question && waiting"
-                    class="tips">「喵呜组织语言中···」</span>
+                    class="tips">「组织语言中···」</span>
             </div>
           </div>
           <div />
@@ -34,7 +38,24 @@
       </div>
     </div>
     <div class="operation-box">
-      <a-button
+      <!-- 操作指示箭头 -->
+      <div class="arrow" />
+      <!-- 操作按钮 -->
+      <!-- <div
+        class="img-btn"
+        :class="{ 'speak': !isSpeaking, 'speaking': isSpeaking }"
+        @mousedown="handleSpeak(true)"
+        @mouseup="handleSpeak(false)" /> -->
+      <div v-show="!isSpeaking"
+           class="img-btn speak"
+           @click="handleSpeak(true)" />
+      <div v-show="isSpeaking"
+           class="img-btn speaking"
+           @click="handleSpeak(false)" />
+      <h2 style="font-weight: bold">
+        Tap Me, Say Hi
+      </h2>
+      <!-- <a-button
         size="large"
         class="icon-btn"
         shape="circle"
@@ -73,8 +94,9 @@
         <template #icon>
           <CaretDownOutlined />
         </template>
-      </a-button>
+      </a-button> -->
     </div>
+    <!-- 描述的话 -->
     <!-- <div class="operation-box">
       <a-button
 
@@ -87,14 +109,13 @@
     </div> -->
 
     <div class="input-box">
-      <a-textarea v-model:value="val"
-                  class="my-input" />
-      <a-button class="button"
-                @click="askQuestion">
-        发送
-      </a-button>
+      <a-input class="mail-box"
+               placeholder="Email" />
+      <div class="mail-text">
+        Subscribe to preorder Chatee.
+      </div>
     </div>
-    <div class="page-box">
+    <!-- <div class="page-box">
       <div class="chat-box">
         <div v-for="(item, index) in content"
              :key="index"
@@ -102,11 +123,8 @@
              :class="{ 'role-gpt': item.role === 'gpt', 'role-user': item.role === 'user' }">
           {{ item.role === 'user' ? '你' : '喵喵' }}：{{ item.msg }}
         </div>
-        <!-- <div class="role-user msg">
-          a msg from user
-        </div> -->
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -123,10 +141,10 @@ export default defineComponent({
   components: {
     CatBox,
     Speaking,
-    AudioOutlined,
-    AudioMutedOutlined,
-    CaretDownOutlined,
-    CaretUpOutlined,
+    // AudioOutlined,
+    // AudioMutedOutlined,
+    // CaretDownOutlined,
+    // CaretUpOutlined,
   },
   props: {
     msg: {
@@ -209,8 +227,25 @@ export default defineComponent({
         role: 'gpt',
       })
 
+      // handleSpeakWord(reply.content)
+
       state.current_answer = reply.content
       state.waiting = false
+    }
+
+    function handleSpeakWord (text: string) { // 播放语音
+      var utterThis = new SpeechSynthesisUtterance(text)
+      const synth = window.speechSynthesis
+      const voices = synth.getVoices()
+      const name = 'Google 普通话（中国大陆）'
+      for (let i = 0; i < voices.length; i++) {
+        if (voices[i].name === name) {
+          utterThis.voice = voices[i]
+        }
+      }
+      utterThis.pitch = 1
+      utterThis.rate = 1
+      synth.speak(utterThis)
     }
 
     function handleSendMsg () { // 发送消息
@@ -332,36 +367,53 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  // position: relative;
   box-sizing: border-box;
   padding: 10px 10px 10px 10px;
-  // width: 100vw;
-  // height: 100vh;
-
+  // background: linear-gradient(180deg, #686868 0%, #4C6975 0.01%, #6f868f 15%, rgba(217, 217, 217, 0) 100%);
+  background: linear-gradient(180deg, #686868 0%, #4C6975 0.01%, rgba(217, 217, 217, 0) 100%);
+  width: 100vw;
+  height: 100vh;
+  overflow-x:hidden;
+  user-select:none;
+.header-text {
+  width: 100%;
+  color: #fff;
+  font-family: 微软雅黑;
+  &.h1 {
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 0;
+  }
+}
   .device-panel {
     box-sizing: border-box;
     width: 100%;
-    // max-width: 394px;
-    // max-height: 269px;
-    width: 394px;
-    height: 270px;
+    padding-top: 100%;
+    // height: 270px;
     // padding-top: 68.5%;
-    // height: 0;
     position: relative;
     .device-box {
       position: absolute;
-      left: 0;
+      left: 50%;
       top: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url(/chatee/dist/bg.png);
+      transform: translateX(-50%);
+      // width: 100%;
+      // height: 100%;
+      width: 375px;
+      height: 375px;
+
+      background-color: transparent;
+      background-image: url(/chatee/dist/bg3.png);
       background-size: 100% 100%;
-      padding: 24px 20px 20px 22px;
+      // padding: 24px 20px 20px 22px;
+      padding: 145px 105px 94px 105px;
       box-sizing: border-box;
 
       .device-screen {
+        font-family: pixel, 微软雅黑, Helvetica, Arial, sans-serif;
+        font-size: 12px;
         // background: #eee;
-        width: 83%;
+        width: 100%;
         height: 100%;
         position: relative;
         .question-box {
@@ -396,7 +448,32 @@ export default defineComponent({
 
   .operation-box {
     width: 100%;
-    padding: 20px 0;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+
+    .arrow {
+      position: absolute;
+      width: 50px;
+      height: 35px;
+      left: 60px;
+      top: 20px;
+      background-image: url(/chatee/dist/arrow.png);
+      background-size: 100% 100%;
+    }
+    .img-btn { // 图形按钮
+      display: inline-block;
+      width: 65px;
+      height: 65px;
+    }
+    .speak {
+       background-image: url(/chatee/dist/btn-unpressed.png);
+       background-size: 100% 100%;
+    }
+    .speaking {
+       background-image: url(/chatee/dist/btn-pressed.png);
+       background-size: 100% 100%;
+    }
 
     .icon-btn {
       margin: 0 20px;
@@ -432,7 +509,21 @@ export default defineComponent({
   }
   .input-box {
     width: 500px;
-    text-align: left;
+    text-align: center;
+    .mail-box {
+      text-align: left;
+      width: 280px;
+      height: 55px;
+      background: linear-gradient(180deg, #050505 0%, #5E5E5E 100%);
+      border: 2px solid #000000;
+      border-radius: 15px;
+      font-family: pixel, 微软雅黑, Helvetica, Arial, sans-serif;
+      // color: #fff;
+      color: rgb(84, 246, 58, .6);
+    }
+    .mail-text {
+      margin-top: 5px;
+    }
     .my-input {
       // width: 300px;
     }
